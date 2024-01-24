@@ -67,3 +67,96 @@ namespace progr
         }
     }
 }
+______________________________________________________________________________________________________
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace class_graf
+{
+    internal class Program
+    {
+        //class Przyklad
+        //{
+        //    int Id;
+        //    public string Imie { get; set; }
+        //    List<string> Hobbies;
+        //    List<string> Przywitaj()
+        //    {
+        //        Console.WriteLine("Hej");
+        //    }
+        //}
+        class Wierzcholek
+        {
+            List<int> Polaczenia = new List<int>();
+            //dodajPołączenie(int n)
+            //Połączenie.add(w)
+            public void DodajPolaczenie(int w)
+            {
+                Polaczenia.Add(w);
+            }
+
+            public void WypiszPolaczenia()
+            {
+                foreach (var item in Polaczenia)
+                    Console.Write(" {0} ", item);
+            }
+        }
+
+        class Graf
+        {
+            List<Wierzcholek> Wierzcholek = new List<Wierzcholek>();
+            public Graf(int n)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    //Wierzcholek w = new Wierzcholek();
+                    Wierzcholek.Add(new Wierzcholek());  //(w)
+                }
+            }
+            //dodaj Krawędź(0,1)
+            //dodaj Krawędź(0,2)
+            //dodaj Krawędź(0,[1,2])
+            public void DodajKrawedz(int w, params int[] polacz)
+            {
+                foreach (var item in polacz)
+                {
+                    Wierzcholek[w].DodajPolaczenie(item);
+                }
+            }
+            //wypisz krawędzie (int w)
+            public void WypiszKrawedzie(int w)
+            {
+                Console.WriteLine();
+                Console.Write("Krawedz {0} : ",w);
+                Wierzcholek[w].WypiszPolaczenia();
+            }
+        }
+        static void Main(string[] args)
+        {
+            Graf g = new Graf(6);
+            g.DodajKrawedz(0, 1, 2);
+            g.DodajKrawedz(1, 0, 3);
+            g.DodajKrawedz(2, 0, 3, 5);
+            g.DodajKrawedz(3, 1, 2, 5);
+            g.DodajKrawedz(5, 2, 3);
+
+            for (int i = 0; i < 6; i++)
+            {
+                g.WypiszKrawedzie(i);
+            }
+
+            //g.DodajKrawedz(0, new int[] { 1, 2 });
+
+            /*int[] T = new int[] { 0, 3 };
+            g.DodajKrawedz(1, T);*/
+
+
+            Console.ReadKey();
+        }
+    }
+}
